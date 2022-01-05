@@ -27,23 +27,23 @@ pipeline {
 				sh "mvn clean compile"
 			}
 		}
-		stage('Test'){
+		stage('Test') {
 			steps {
 				sh "mvn test"
 			}
 		}
-		stage('Integration Test'){
+		stage('Integration Test') {
 			steps {
 				sh "mvn failsafe:integration-test failsafe:verify"
 			}
 		}
-		stage('Package'){
+		stage('Package') {
 			steps {
 				sh "mvn package -DskipTests"
 			}
 		}
 
-		stage{'Build Docker Image'}{
+		stage('Build Docker Image') {
 			steps {
 				// "docker build -t dockeraccoutnick/currency-exchange-devops:$env.BUILD_TAG"
 				script{
@@ -52,7 +52,7 @@ pipeline {
 			}
 		}
 
-		stage {'Push Docker Image'} {
+		stage('Push Docker Image') {
 			steps {
 				script {
 					docker.withRegistry('', 'dockerhub') {
